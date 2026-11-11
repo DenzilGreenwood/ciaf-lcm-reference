@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ciaf-lcm.org/v0.1/assurance-claim.v0.1.schema.json",
+  "title": "CIAF-LCM AssuranceClaim v0.1",
+  "description": "Zero-trust assurance verification output emitted by an independent verifier (CIAF-10) after evaluating an AuditCapsule against a trusted public key manifest. Licensed under Apache-2.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_type",
+    "claim_id",
+    "timestamp",
+    "verifier_id",
+    "capsule_id",
+    "capsule_digest",
+    "capsule_valid",
+    "assurance_disposition",
+    "checks",
+    "failed_controls",
+    "findings",
+    "completeness_notice",
+    "signature",
+    "claim_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "claim_type": {
+      "const": "ASSURANCE_CLAIM"
+    },
+    "claim_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 20
+    },
+    "verifier_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "capsule_id": {
+      "type": "string",
+      "minLength": 4
+    },
+    "capsule_digest": {
+      "$ref": "#/$defs/sha256_digest"
+    },
+    "capsule_valid": {
+      "type": "boolean"
+    },
+    "assurance_disposition": {
+      "type": "string",
+      "enum": [
+        "ASSURED_AUTHORIZED_EXECUTION",
+        "ASSURED_GOVERNANCE_BLOCK",
+        "ASSURED_SECURITY_EXCEPTION_CONTAINED",
+        "ASSURANCE_FAILURE_TAMPER_OR_VIOLATION"
+      ]
+    },
+    "checks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_validation_passed",
+        "rfc8785_digests_valid",
+        "dual_key_trust_boundary_valid",
+        "ed25519_signatures_valid",
+        "policy_digest_binding_valid",
+        "grant_nonce_and_ttl_valid",
+        "hash_chain_continuity_valid",
+        "semantic_consistency_valid",
+        "scitt_inclusion_verified"
+      ],
+      "properties": {
+        "schema_validation_passed": { "type": "boolean" },
+        "rfc8785_digests_valid": { "type": "boolean" },
+        "dual_key_trust_boundary_valid": { "type": "boolean" },
+        "ed25519_signatures_valid": { "type": "boolean" },
+        "policy_digest_binding_valid": { "type": "boolean" },
+        "grant_nonce_and_ttl_valid": { "type": "boolean" },
+        "hash_chain_continuity_valid": { "type": "boolean" },
+        "semantic_consistency_valid": { "type": "boolean" },
+        "scitt_inclusion_verified": {
+          "oneOf": [{ "type": "null" }, { "type": "boolean" }]
+        }
+      }
+    },
+    "failed_controls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CIAF-(0[1-9]|1[0-2])$"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["severity", "control_id", "code", "message"],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": ["INFO", "WARNING", "CRITICAL"]
+          },
+          "control_id": {
+            "type": "string",
+            "pattern": "^CIAF-(0[1-9]|1[0-2])$"
+          },
+          "code": { "type": "string", "minLength": 3 },
+          "message": { "type": "string", "minLength": 5 }
+        }
+      }
+    },
+    "completeness_notice": {
+      "type": "string",
+      "minLength": 20
+    },
+    "signature": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/ed25519_signature" }
+      ]
+    },
+    "claim_digest": {
+      "$ref": "#/$defs/sha256_digest"
+    }
+  },
+  "$defs": {
+    "sha256_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "ed25519_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "key_id",
+        "signed_payload_digest",
+        "sig_b64u"
+      ],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "canonicalization": { "const": "RFC8785-JCS" },
+        "key_id": { "type": "string", "minLength": 3 },
+        "signed_payload_digest": { "$ref": "#/$defs/sha256_digest" },
+        "sig_b64u": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$"
+        }
+      }
+    }
+  }
+}
+

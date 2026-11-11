@@ -1,0 +1,66 @@
+Creative Commons Attribution 4.0 International (CC-BY-4.0)
+==========================================================
+
+Copyright 2026 CIAF-LCM Working Group Contributors
+
+Scope of Coverage
+-----------------
+This Creative Commons Attribution 4.0 International Public License ("CC-BY-4.0")
+governs all normative specifications, vocabulary definitions, audit readiness
+methodologies, control catalogs, and standards crosswalks located in:
+
+  - `docs/`
+  - `controls/`
+  - `standards-crosswalks/`
+
+All JSON Schemas (`schemas/`), reference implementations (`reference-implementation/`),
+interoperability examples (`examples/`), test suites (`tests/`), and interactive
+verifier applications (`apps/`) are separately licensed under the Apache License,
+Version 2.0 (see `LICENSE-CODE`).
+
+Human-Readable Summary of CC-BY-4.0
+-----------------------------------
+(This summary is not a substitute for the full legal code available at
+https://creativecommons.org/licenses/by/4.0/legalcode.en)
+
+You are free to:
+  1. Share — copy and redistribute the material in any medium or format for any
+     purpose, even commercially.
+  2. Adapt — remix, transform, and build upon the material for any purpose,
+     even commercially.
+
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+
+Under the following terms:
+  1. Attribution — You must give appropriate credit, provide a link to the
+     license (https://creativecommons.org/licenses/by/4.0/), and indicate if
+     changes were made. You may do so in any reasonable manner, but not in any
+     way that suggests the licensor endorses you or your use.
+  2. No additional restrictions — You may not apply legal terms or technological
+     measures that legally restrict others from doing anything the license permits.
+
+Normative Attribution & Conformance Rules
+-----------------------------------------
+1. Required Attribution Notice:
+   Redistributions or derivative specifications must retain the following credit:
+   "Derived from or incorporating the Cognitive Insight Audit Framework – Lazy
+   Capsule Materialization (CIAF-LCM) v0.1 Specification, licensed under CC-BY-4.0."
+
+2. Modification Transparency:
+   If any normative requirement (`MUST`, `MUST NOT`, `REQUIRED`, `SHALL`),
+   control definition (`CIAF-01` through `CIAF-12`), or cryptographic boundary rule
+   is altered or omitted in a derivative work, the derivative document MUST clearly
+   state the modifications and MUST NOT represent modified profiles as unmodified
+   CIAF-LCM v0.1 conformance.
+
+3. Vendor Neutrality & Non-Endorsement:
+   Attribution MUST NOT imply endorsement, certification, or approval of any
+   commercial product, runtime, or organization by the CIAF-LCM contributors,
+   NIST, ISO/IEC, IETF, or any regulatory authority.
+
+Full Legal Code Reference
+-------------------------
+Creative Commons Corporation is not a law firm and does not provide legal services.
+The authoritative CC-BY-4.0 Legal Code is incorporated by reference from:
+https://creativecommons.org/licenses/by/4.0/legalcode.en
+

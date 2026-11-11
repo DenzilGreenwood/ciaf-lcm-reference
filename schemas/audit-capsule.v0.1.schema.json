@@ -1,0 +1,226 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ciaf-lcm.org/v0.1/audit-capsule.v0.1.schema.json",
+  "title": "CIAF-LCM AuditCapsule v0.1",
+  "description": "Lazily materialized, self-contained evidence bundle linking pinned policy, AuthorizationClaim(s), ExecutionClaim(s), hash-chain digests, SCITT transparency metadata, and OKP JWK public key manifest (CIAF-09, CIAF-10). Licensed under Apache-2.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capsule_type",
+    "capsule_id",
+    "materialized_at",
+    "workflow_trace_id",
+    "policy_snapshot",
+    "public_key_manifest",
+    "hash_chain",
+    "authorization_claims",
+    "execution_claims",
+    "scitt_transparency",
+    "capsule_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "capsule_type": {
+      "const": "CIAF_LCM_AUDIT_CAPSULE"
+    },
+    "capsule_id": {
+      "type": "string",
+      "minLength": 6
+    },
+    "materialized_at": {
+      "type": "string",
+      "minLength": 20
+    },
+    "workflow_trace_id": {
+      "type": "string",
+      "minLength": 4
+    },
+    "policy_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "policy_id",
+        "policy_version",
+        "policy_document",
+        "policy_digest"
+      ],
+      "properties": {
+        "policy_id": { "type": "string", "minLength": 3 },
+        "policy_version": { "type": "string", "minLength": 1 },
+        "policy_document": { "type": "object" },
+        "policy_digest": { "$ref": "#/$defs/sha256_digest" }
+      }
+    },
+    "authority_attestation": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/registry_authority_attestation" }
+      ]
+    },
+    "public_key_manifest": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "$ref": "#/$defs/trusted_key_entry"
+      }
+    },
+    "hash_chain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "genesis_receipt_digest",
+        "tip_receipt_digest",
+        "receipt_count",
+        "ordered_receipt_digests"
+      ],
+      "properties": {
+        "algorithm": { "const": "SHA-256" },
+        "canonicalization": { "const": "RFC8785-JCS" },
+        "genesis_receipt_digest": { "$ref": "#/$defs/sha256_digest" },
+        "tip_receipt_digest": { "$ref": "#/$defs/sha256_digest" },
+        "receipt_count": { "type": "integer", "minimum": 1 },
+        "ordered_receipt_digests": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/sha256_digest" }
+        }
+      }
+    },
+    "authorization_claims": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "execution_claims": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "scitt_transparency": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "transparency_service_id",
+        "cose_sign1_statement_digest",
+        "inclusion_receipt_b64u",
+        "completeness_guarantee"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "NOT_REGISTERED_LOCAL_CHAIN_ONLY",
+            "REGISTERED_INCLUSION_RECEIPT_ATTACHED"
+          ]
+        },
+        "transparency_service_id": {
+          "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 3 }]
+        },
+        "cose_sign1_statement_digest": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256_digest" }]
+        },
+        "inclusion_receipt_b64u": {
+          "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 8 }]
+        },
+        "completeness_guarantee": {
+          "type": "string",
+          "minLength": 15
+        }
+      }
+    },
+    "capsule_digest": {
+      "$ref": "#/$defs/sha256_digest"
+    }
+  },
+  "$defs": {
+    "sha256_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "okp_ed25519_jwk": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kty", "crv", "x"],
+      "properties": {
+        "kty": { "const": "OKP" },
+        "crv": { "const": "Ed25519" },
+        "x": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        }
+      }
+    },
+    "trusted_key_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key_id", "role", "status", "public_key_jwk"],
+      "properties": {
+        "key_id": { "type": "string", "minLength": 3 },
+        "role": {
+          "type": "string",
+          "enum": [
+            "PRE_EXECUTION_GOVERNANCE_GATEWAY",
+            "EXECUTION_SERVICE",
+            "ASSURANCE_VERIFIER",
+            "REGISTRY_AUTHORITY",
+            "HUMAN_REVIEWER"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ACTIVE", "REVOKED"]
+        },
+        "public_key_jwk": {
+          "$ref": "#/$defs/okp_ed25519_jwk"
+        }
+      }
+    },
+    "ed25519_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "key_id",
+        "signed_payload_digest",
+        "sig_b64u"
+      ],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "canonicalization": { "const": "RFC8785-JCS" },
+        "key_id": { "type": "string", "minLength": 3 },
+        "signed_payload_digest": { "$ref": "#/$defs/sha256_digest" },
+        "sig_b64u": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$"
+        }
+      }
+    },
+    "registry_authority_attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "registry_id",
+        "attested_at",
+        "use_case",
+        "agent",
+        "delegation",
+        "signature",
+        "attestation_digest"
+      ],
+      "properties": {
+        "registry_id": { "type": "string", "minLength": 3 },
+        "attested_at": { "type": "string", "minLength": 20 },
+        "use_case": { "type": "object" },
+        "agent": { "type": "object" },
+        "delegation": { "type": "object" },
+        "signature": { "$ref": "#/$defs/ed25519_signature" },
+        "attestation_digest": { "$ref": "#/$defs/sha256_digest" }
+      }
+    }
+  }
+}

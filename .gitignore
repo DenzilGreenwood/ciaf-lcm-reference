@@ -1,0 +1,29 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+dist/
+build/
+
+# Node / Next.js
+node_modules/
+apps/verifier-sandbox/node_modules/
+apps/verifier-sandbox/.next/
+apps/verifier-sandbox/out/
+apps/verifier-sandbox/next-env.d.ts
+*.tsbuildinfo
+
+# OS / IDE / Local AI Workspace
+.DS_Store
+Thumbs.db
+.env
+.env.*
+GEMINI.md
+*.jsonl
+.antigravity/
+
+

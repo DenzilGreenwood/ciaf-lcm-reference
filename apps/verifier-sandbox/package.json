@@ -1,0 +1,28 @@
+{
+  "name": "@ciaf-lcm/verifier-sandbox",
+  "version": "0.1.1",
+  "private": true,
+  "license": "Apache-2.0",
+  "description": "Stateless CIAF-LCM v0.1.1 Receipt & Readiness Inspector powered by Web Crypto Ed25519 and RFC 8785 JCS",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "verify:interop": "node scripts/verify_cross_lang.mjs"
+  },
+  "dependencies": {
+    "next": "^15.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^22.13.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.8.0"
+  }
+}
+

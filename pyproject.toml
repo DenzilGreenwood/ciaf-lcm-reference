@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ciaf-lcm"
+version = "0.1.1"
+description = "Cognitive Insight Audit Framework - Lazy Capsule Materialization (CIAF-LCM) v0.1.1 Reference Implementation"
+readme = "README.md"
+license = { file = "LICENSE-CODE" }
+requires-python = ">=3.11"
+authors = [
+  { name = "CIAF-LCM Working Group Contributors" }
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Intended Audience :: Healthcare Industry",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Topic :: Security :: Cryptography",
+]
+dependencies = [
+  "cryptography>=42.0.0",
+  "jsonschema>=4.21.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/DenzilGreenwood/ciaf-lcm-reference"
+Repository = "https://github.com/DenzilGreenwood/ciaf-lcm-reference"
+Issues = "https://github.com/DenzilGreenwood/ciaf-lcm-reference/issues"
+
+[project.scripts]
+ciaf-lcm-demo = "ciaf_lcm.cli_demo:main"
+
+[tool.setuptools]
+package-dir = {"" = "reference-implementation/python"}
+
+[tool.setuptools.packages.find]
+where = ["reference-implementation/python"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["reference-implementation/python"]
+addopts = "-ra -q"
+

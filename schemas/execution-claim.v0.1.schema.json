@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ciaf-lcm.org/v0.1/execution-claim.v0.1.schema.json",
+  "title": "CIAF-LCM ExecutionClaim v0.1",
+  "description": "Cryptographically signed execution or non-execution receipt emitted by an independently keyed Execution Service (CIAF-08, CIAF-11). Licensed under Apache-2.0.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_type",
+    "claim_id",
+    "sequence_number",
+    "previous_receipt_digest",
+    "timestamp",
+    "executor_id",
+    "authorization_binding",
+    "action_request",
+    "execution",
+    "security_exception",
+    "signature",
+    "claim_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "0.1.0"
+    },
+    "claim_type": {
+      "const": "EXECUTION_CLAIM"
+    },
+    "claim_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "sequence_number": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "previous_receipt_digest": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/sha256_digest" }
+      ]
+    },
+    "timestamp": {
+      "type": "string",
+      "minLength": 20,
+      "description": "Executor-asserted ISO-8601 UTC execution timestamp. Offline TTL checks verify chronological consistency across self-asserted Gateway and Executor clocks; adversarial clock-backdating mitigation requires an external RFC 3161 Trusted Timestamping Authority (TSA) token or IETF SCITT (RFC 9943 / RFC 9942) registration timestamp."
+    },
+    "executor_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "authorization_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authorization_claim_id",
+        "authorization_claim_digest",
+        "grant_id",
+        "consumed_nonce",
+        "policy_digest",
+        "grant_verification_status"
+      ],
+      "properties": {
+        "authorization_claim_id": {
+          "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 8 }]
+        },
+        "authorization_claim_digest": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256_digest" }]
+        },
+        "grant_id": {
+          "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 6 }]
+        },
+        "consumed_nonce": {
+          "oneOf": [{ "type": "null" }, { "type": "string", "minLength": 16 }]
+        },
+        "policy_digest": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256_digest" }]
+        },
+        "grant_verification_status": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "NOT_PRESENTED_PRE_BLOCKED",
+            "MISSING_BYPASS_ATTEMPT",
+            "INVALID_SIGNATURE",
+            "EXPIRED_TTL",
+            "NONCE_REPLAYED",
+            "REQUEST_DIGEST_MISMATCH",
+            "POLICY_DIGEST_MISMATCH",
+            "AGENT_MISMATCH",
+            "TOOL_MISMATCH",
+            "AUTHORITY_REVOKED_IN_FLIGHT"
+          ]
+        }
+      }
+    },
+    "action_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_id",
+        "agent_id",
+        "tool_name",
+        "operation",
+        "parameters",
+        "observed_request_digest"
+      ],
+      "properties": {
+        "proposal_id": { "type": "string", "minLength": 4 },
+        "agent_id": { "type": "string", "minLength": 3 },
+        "tool_name": { "type": "string", "minLength": 2 },
+        "operation": { "type": "string", "minLength": 2 },
+        "parameters": { "type": "object" },
+        "observed_request_digest": { "$ref": "#/$defs/sha256_digest" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "attempted",
+        "executed",
+        "status",
+        "side_effects_committed",
+        "result_digest",
+        "result_summary"
+      ],
+      "properties": {
+        "attempted": { "type": "boolean" },
+        "executed": { "type": "boolean" },
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUCCEEDED",
+            "FAILED_TOOL_ERROR",
+            "NOT_ATTEMPTED_GATEWAY_BLOCKED",
+            "REJECTED_SECURITY_EXCEPTION"
+          ]
+        },
+        "side_effects_committed": { "type": "boolean" },
+        "result_digest": {
+          "oneOf": [{ "type": "null" }, { "$ref": "#/$defs/sha256_digest" }]
+        },
+        "result_summary": {
+          "oneOf": [{ "type": "null" }, { "type": "object" }]
+        }
+      }
+    },
+    "security_exception": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "detected",
+            "control_id",
+            "exception_code",
+            "severity",
+            "detail"
+          ],
+          "properties": {
+            "detected": { "const": true },
+            "control_id": {
+              "type": "string",
+              "pattern": "^CIAF-(0[1-9]|1[0-2])$"
+            },
+            "exception_code": {
+              "type": "string",
+              "enum": [
+                "DIRECT_GATEWAY_BYPASS",
+                "GRANT_NONCE_REPLAY",
+                "TOCTOU_PAYLOAD_TAMPER",
+                "GRANT_TTL_EXPIRED",
+                "GRANT_SIGNATURE_INVALID",
+                "POLICY_DIGEST_MISMATCH",
+                "UNAUTHORIZED_CALLER_OR_TOOL",
+                "AUTHORITY_REVOKED_IN_FLIGHT"
+              ]
+            },
+            "severity": {
+              "type": "string",
+              "enum": ["HIGH", "CRITICAL"]
+            },
+            "detail": { "type": "string", "minLength": 5 }
+          }
+        }
+      ]
+    },
+    "signature": { "$ref": "#/$defs/ed25519_signature" },
+    "claim_digest": { "$ref": "#/$defs/sha256_digest" }
+  },
+  "$defs": {
+    "sha256_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "ed25519_signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "key_id",
+        "signed_payload_digest",
+        "sig_b64u"
+      ],
+      "properties": {
+        "algorithm": { "const": "Ed25519" },
+        "canonicalization": { "const": "RFC8785-JCS" },
+        "key_id": { "type": "string", "minLength": 3 },
+        "signed_payload_digest": { "$ref": "#/$defs/sha256_digest" },
+        "sig_b64u": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{86}$"
+        }
+      }
+    }
+  }
+}
+

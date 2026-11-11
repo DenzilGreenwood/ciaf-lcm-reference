@@ -1,0 +1,63 @@
+# Copyright 2026 CIAF-LCM Working Group Contributors
+# SPDX-License-Identifier: Apache-2.0
+name: "Verified: Python + WebCrypto Interop"
+
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-python-and-webcrypto:
+    name: "RFC 8785 + Dual-Key Ed25519 + Next.js Sandbox"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Set up Node.js 22 (Web Crypto Ed25519)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: apps/verifier-sandbox/package-lock.json
+
+      - name: Install Python reference library & pytest suite
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: Run positive, adversarial, cleanroom & cross-language pytest suite
+        run: pytest -v
+
+      - name: Execute 4 end-to-end CLI governance & assurance flows
+        run: python -m ciaf_lcm.cli_demo
+
+      - name: Execute cleanroom zero-import independent producer
+        run: python examples/independent_producer.py > /dev/null
+
+      - name: Verify cross-language fixture determinism
+        run: |
+          python examples/export_cross_language_fixture.py
+          node apps/verifier-sandbox/scripts/verify_cross_lang.mjs
+
+      - name: Install, type-check, and build Next.js Web Crypto inspector
+        working-directory: apps/verifier-sandbox
+        run: |
+          npm ci
+          npm run verify:interop
+          npm run typecheck
+          npm run build
+

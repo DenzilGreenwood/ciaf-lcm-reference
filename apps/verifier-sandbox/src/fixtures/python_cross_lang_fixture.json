@@ -1,0 +1,401 @@
+{
+  "jcs_torture_vector": {
+    "input": {
+      "": "bmp-private-use-sorts-after-astral",
+      "😀": "astral-emoji-sorts-before-bmp-e000",
+      "numbers": {
+        "neg_zero": -0.0,
+        "int_exact_float": 500.0,
+        "half": 4.5,
+        "twenty_zeros": 1e+20,
+        "sci_pos": 1e+21,
+        "fixed_micro": 1e-06,
+        "sci_neg": 1e-07,
+        "dtoa_roundtrip": 333333333.3333333
+      },
+      "controls": "\u0000\b\t\n\f\r\u001f\"\\€",
+      "nested": {
+        "z": [
+          true,
+          false,
+          null
+        ],
+        "a": "canonical"
+      }
+    },
+    "expected_canonical_jcs": "{\"controls\":\"\\u0000\\b\\t\\n\\f\\r\\u001f\\\"\\\\€\",\"nested\":{\"a\":\"canonical\",\"z\":[true,false,null]},\"numbers\":{\"dtoa_roundtrip\":333333333.3333333,\"fixed_micro\":0.000001,\"half\":4.5,\"int_exact_float\":500,\"neg_zero\":0,\"sci_neg\":1e-7,\"sci_pos\":1e+21,\"twenty_zeros\":100000000000000000000},\"😀\":\"astral-emoji-sorts-before-bmp-e000\",\"\":\"bmp-private-use-sorts-after-astral\"}",
+    "expected_sha256": "sha256:e44d4c6923de8c00c7f7fd6c5f00cffa474d73ecb3f64b94beff6f1c90fc6efe"
+  },
+  "trusted_key_manifest": [
+    {
+      "key_id": "py-registry-ed25519-01",
+      "role": "REGISTRY_AUTHORITY",
+      "status": "ACTIVE",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "iC0Oo7KGTnpYfz5pjOpEWZmDEuZV4F-l6LURnYuqyM0"
+      }
+    },
+    {
+      "key_id": "py-gateway-ed25519-01",
+      "role": "PRE_EXECUTION_GOVERNANCE_GATEWAY",
+      "status": "ACTIVE",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "ebVWLo_mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ"
+      }
+    },
+    {
+      "key_id": "py-executor-ed25519-01",
+      "role": "EXECUTION_SERVICE",
+      "status": "ACTIVE",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "5_FioQvsVZr-oZXk3OhLaVaNXSywlj60RsBoXisX8vA"
+      }
+    },
+    {
+      "key_id": "py-verifier-ed25519-01",
+      "role": "ASSURANCE_VERIFIER",
+      "status": "ACTIVE",
+      "public_key_jwk": {
+        "kty": "OKP",
+        "crv": "Ed25519",
+        "x": "rcFAEfgtHFbZVqpPnXPYhYNhpgYEhSXg0Ixjjcdd2Mc"
+      }
+    }
+  ],
+  "python_signed_capsule": {
+    "schema_version": "0.1.0",
+    "capsule_type": "CIAF_LCM_AUDIT_CAPSULE",
+    "capsule_id": "caps-python-signed-interop-01",
+    "materialized_at": "2026-11-10T21:30:05Z",
+    "workflow_trace_id": "trace-py-to-webcrypto-01",
+    "policy_snapshot": {
+      "policy_id": "pol-ap-payments-2026",
+      "policy_version": "1.0.0",
+      "policy_document": {
+        "domain": "enterprise-accounts-payable",
+        "allowed_tools": [
+          "payments.create"
+        ],
+        "autonomous_max_amount_minor_units": 500000,
+        "escalation_max_amount_minor_units": 2500000,
+        "allowed_currencies": [
+          "USD"
+        ],
+        "minor_unit_scale": 2,
+        "grant_max_ttl_seconds": 30,
+        "require_single_use_nonce": true,
+        "authorized_human_reviewers": [
+          "vp-finance@enterprise-example.org"
+        ]
+      },
+      "policy_digest": "sha256:d9124e235f1325fd19f8ca2ab353c1af4dafe811338c3bbe09f96313deac6d21"
+    },
+    "public_key_manifest": [
+      {
+        "key_id": "py-registry-ed25519-01",
+        "role": "REGISTRY_AUTHORITY",
+        "status": "ACTIVE",
+        "public_key_jwk": {
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "x": "iC0Oo7KGTnpYfz5pjOpEWZmDEuZV4F-l6LURnYuqyM0"
+        }
+      },
+      {
+        "key_id": "py-gateway-ed25519-01",
+        "role": "PRE_EXECUTION_GOVERNANCE_GATEWAY",
+        "status": "ACTIVE",
+        "public_key_jwk": {
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "x": "ebVWLo_mVPlAeLES6KmLp5AfhTrmlb7X4OORC60ElmQ"
+        }
+      },
+      {
+        "key_id": "py-executor-ed25519-01",
+        "role": "EXECUTION_SERVICE",
+        "status": "ACTIVE",
+        "public_key_jwk": {
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "x": "5_FioQvsVZr-oZXk3OhLaVaNXSywlj60RsBoXisX8vA"
+        }
+      },
+      {
+        "key_id": "py-verifier-ed25519-01",
+        "role": "ASSURANCE_VERIFIER",
+        "status": "ACTIVE",
+        "public_key_jwk": {
+          "kty": "OKP",
+          "crv": "Ed25519",
+          "x": "rcFAEfgtHFbZVqpPnXPYhYNhpgYEhSXg0Ixjjcdd2Mc"
+        }
+      }
+    ],
+    "hash_chain": {
+      "algorithm": "SHA-256",
+      "canonicalization": "RFC8785-JCS",
+      "genesis_receipt_digest": "sha256:0c550c356eb00502ffaa586c52bd1e715e2f816a185d8cf54f7d021649cac569",
+      "tip_receipt_digest": "sha256:37ef0e6d4908319390c92ed23b9f65195672b34f14f8d42ae6fabdbd8f3232ee",
+      "receipt_count": 2,
+      "ordered_receipt_digests": [
+        "sha256:0c550c356eb00502ffaa586c52bd1e715e2f816a185d8cf54f7d021649cac569",
+        "sha256:37ef0e6d4908319390c92ed23b9f65195672b34f14f8d42ae6fabdbd8f3232ee"
+      ]
+    },
+    "authorization_claims": [
+      {
+        "schema_version": "0.1.0",
+        "claim_type": "AUTHORIZATION_CLAIM",
+        "claim_id": "authz-57b7b10e375549bf",
+        "sequence_number": 0,
+        "previous_receipt_digest": null,
+        "timestamp": "2026-11-10T21:30:00Z",
+        "gateway_id": "ciaf-gateway-prod-01",
+        "subject": {
+          "agent_id": "agent-finance-01",
+          "use_case_id": "uc-ap-invoice-settlement-01",
+          "business_purpose": "Automated Accounts Payable verified vendor invoice settlement",
+          "accountable_owner": "controller@enterprise-example.org"
+        },
+        "authority_context": {
+          "delegation_id": "del-fin-agent-01",
+          "authority_status": "ACTIVE",
+          "policy_id": "pol-ap-payments-2026",
+          "policy_version": "1.0.0",
+          "policy_digest": "sha256:d9124e235f1325fd19f8ca2ab353c1af4dafe811338c3bbe09f96313deac6d21",
+          "delegated_scope_snapshot": {
+            "accountable_owner": "controller@enterprise-example.org",
+            "allowed_tools": [
+              "payments.create"
+            ],
+            "max_auto_amount_minor_units": 500000,
+            "escalation_max_amount_minor_units": 2500000,
+            "currency": "USD",
+            "revoked": false
+          }
+        },
+        "proposed_action": {
+          "proposal_id": "prop-py-001",
+          "tool_name": "payments.create",
+          "operation": "CREATE_PAYMENT",
+          "parameters": {
+            "amount_minor_units": 45000,
+            "currency": "USD",
+            "minor_unit_scale": 2,
+            "beneficiary": "vendor-acme-01",
+            "invoice_id": "INV-PY-WEBCRYPTO-01"
+          },
+          "request_digest": "sha256:747c9cc3a3dcf57e29a4b314de7dbb988dd62ec8410c7a6256f91be9a36f4bce"
+        },
+        "decision": {
+          "outcome": "ALLOW",
+          "reason_code": "WITHIN_DELEGATED_AUTHORITY",
+          "rationale": "Proposed action 'payments.create' satisfies delegated scope and pinned policy 'pol-ap-payments-2026'.",
+          "evaluated_controls": [
+            "CIAF-01",
+            "CIAF-02",
+            "CIAF-03",
+            "CIAF-04",
+            "CIAF-05",
+            "CIAF-06"
+          ]
+        },
+        "human_escalation": {
+          "required": false,
+          "status": "NOT_REQUIRED",
+          "reviewer_id": null,
+          "review_rationale": null,
+          "reviewed_at": null,
+          "reviewer_signature": null
+        },
+        "execution_grant": {
+          "grant_id": "grant-ae7b14a9550047ed",
+          "nonce": "9a4b3cc76a8f9f8ef4f40c701fcaf864",
+          "issued_at": "2026-11-10T21:30:00Z",
+          "expires_at": "2026-11-10T21:30:30Z",
+          "ttl_seconds": 30,
+          "target_service": "payments-executor-01",
+          "bound_agent_id": "agent-finance-01",
+          "bound_tool_name": "payments.create",
+          "bound_request_digest": "sha256:747c9cc3a3dcf57e29a4b314de7dbb988dd62ec8410c7a6256f91be9a36f4bce",
+          "bound_policy_digest": "sha256:d9124e235f1325fd19f8ca2ab353c1af4dafe811338c3bbe09f96313deac6d21",
+          "bound_authorization_claim_id": "authz-57b7b10e375549bf",
+          "gateway_grant_signature": {
+            "algorithm": "Ed25519",
+            "canonicalization": "RFC8785-JCS",
+            "key_id": "py-gateway-ed25519-01",
+            "signed_payload_digest": "sha256:05fa510ca6588c6013f0f1086ecdaac4246fc018df9601a58f3602c2021c528e",
+            "sig_b64u": "IJCf_QRyqL_6Wx9lUQcwIGBVUgEQT2Rvh06BLdtRhdASqlXZk6agW0tzV2ZyufjXOyxDdHEhPGwfl6NEbygfAg"
+          }
+        },
+        "signature": {
+          "algorithm": "Ed25519",
+          "canonicalization": "RFC8785-JCS",
+          "key_id": "py-gateway-ed25519-01",
+          "signed_payload_digest": "sha256:143def9d3ffaf5f3fb63f31256386ce0665243a789e8f451bc40a297739e90ce",
+          "sig_b64u": "mttDfRO4JmbadA-QUhgp7nsBGRXBmOD-lwJtOxyTOpoXGbm1wmB09vnnJHOjso8bn_kFvGLP6K3VdnagU1Q7CQ"
+        },
+        "claim_digest": "sha256:0c550c356eb00502ffaa586c52bd1e715e2f816a185d8cf54f7d021649cac569"
+      }
+    ],
+    "execution_claims": [
+      {
+        "schema_version": "0.1.0",
+        "claim_type": "EXECUTION_CLAIM",
+        "claim_id": "exec-fff0b646d40c4e37",
+        "sequence_number": 1,
+        "previous_receipt_digest": "sha256:0c550c356eb00502ffaa586c52bd1e715e2f816a185d8cf54f7d021649cac569",
+        "timestamp": "2026-11-10T21:30:04Z",
+        "executor_id": "payments-executor-01",
+        "authorization_binding": {
+          "authorization_claim_id": "authz-57b7b10e375549bf",
+          "authorization_claim_digest": "sha256:0c550c356eb00502ffaa586c52bd1e715e2f816a185d8cf54f7d021649cac569",
+          "grant_id": "grant-ae7b14a9550047ed",
+          "consumed_nonce": "9a4b3cc76a8f9f8ef4f40c701fcaf864",
+          "policy_digest": "sha256:d9124e235f1325fd19f8ca2ab353c1af4dafe811338c3bbe09f96313deac6d21",
+          "grant_verification_status": "VERIFIED"
+        },
+        "action_request": {
+          "proposal_id": "prop-py-001",
+          "agent_id": "agent-finance-01",
+          "tool_name": "payments.create",
+          "operation": "CREATE_PAYMENT",
+          "parameters": {
+            "amount_minor_units": 45000,
+            "currency": "USD",
+            "minor_unit_scale": 2,
+            "beneficiary": "vendor-acme-01",
+            "invoice_id": "INV-PY-WEBCRYPTO-01"
+          },
+          "observed_request_digest": "sha256:747c9cc3a3dcf57e29a4b314de7dbb988dd62ec8410c7a6256f91be9a36f4bce"
+        },
+        "execution": {
+          "attempted": true,
+          "executed": true,
+          "status": "SUCCEEDED",
+          "side_effects_committed": true,
+          "result_digest": "sha256:0a00251f4ea3b034ce91597bfb9f76508333dcb33cdc1e9e0ebced28d3be82d3",
+          "result_summary": {
+            "payment_id": "pay-5ccf35194de1",
+            "proposal_id": "prop-py-001",
+            "settled_amount_minor_units": 45000,
+            "currency": "USD",
+            "minor_unit_scale": 2,
+            "beneficiary": "vendor-acme-01",
+            "invoice_id": "INV-PY-WEBCRYPTO-01",
+            "settlement_status": "SETTLED",
+            "settled_at": "2026-11-10T21:30:04Z"
+          }
+        },
+        "security_exception": null,
+        "signature": {
+          "algorithm": "Ed25519",
+          "canonicalization": "RFC8785-JCS",
+          "key_id": "py-executor-ed25519-01",
+          "signed_payload_digest": "sha256:41914fd3db8ec07a213e537baad0943732e512491241c2a9c5880d4bba092f38",
+          "sig_b64u": "9aILk-Mn29OYCilJ9gwGp-mK_84yG2QJo4UgzjVpeJElGimyf-wmL2hsL3d209_Oe8c75n_y2pq6C5hjWOQBDQ"
+        },
+        "claim_digest": "sha256:37ef0e6d4908319390c92ed23b9f65195672b34f14f8d42ae6fabdbd8f3232ee"
+      }
+    ],
+    "scitt_transparency": {
+      "status": "NOT_REGISTERED_LOCAL_CHAIN_ONLY",
+      "transparency_service_id": null,
+      "cose_sign1_statement_digest": null,
+      "inclusion_receipt_b64u": null,
+      "completeness_guarantee": "Local RFC 8785 SHA-256 hash-chaining detects mid-chain tampering, deletion, or reordering within a trace; external log-tail omission, whole-trace completeness, and independent trusted timestamp anchoring require an RFC 3161 TSA token or IETF SCITT (RFC 9943 / RFC 9942) Transparency Service receipt."
+    },
+    "authority_attestation": {
+      "registry_id": "ciaf-registry-prod-01",
+      "attested_at": "2026-11-10T21:30:00Z",
+      "use_case": {
+        "use_case_id": "uc-ap-invoice-settlement-01",
+        "business_purpose": "Automated Accounts Payable verified vendor invoice settlement",
+        "accountable_owner": "controller@enterprise-example.org",
+        "risk_tier": "HIGH",
+        "status": "ACTIVE"
+      },
+      "agent": {
+        "agent_id": "agent-finance-01",
+        "workload_id": "spiffe://enterprise-example.org/ns/finance/sa/agent-finance-01",
+        "model_profile": "vendor-neutral-reasoning-agent-v1",
+        "status": "ACTIVE"
+      },
+      "delegation": {
+        "delegation_id": "del-fin-agent-01",
+        "policy_id": "pol-ap-payments-2026",
+        "allowed_tools": [
+          "payments.create"
+        ],
+        "autonomous_max_amount": 500000,
+        "escalation_max_amount": 2500000,
+        "rolling_window_max_amount": null,
+        "rolling_window_max_count": null,
+        "rolling_window_seconds": 86400,
+        "allowed_currencies": [
+          "USD"
+        ],
+        "scope_constraints": {},
+        "status": "ACTIVE",
+        "revocation_reason": null,
+        "revoked_at": null
+      },
+      "signature": {
+        "algorithm": "Ed25519",
+        "canonicalization": "RFC8785-JCS",
+        "key_id": "py-registry-ed25519-01",
+        "signed_payload_digest": "sha256:1449662aed36750d7f132a17f31ac676d4d971f1159edaf1145b7b659955afb0",
+        "sig_b64u": "4O62lGDA5P2kzQfpH1G8OYpBrsVWVgDjBPQQvtPWUDKOFQCOku4gAb0ae0vUn_5nvvlSF2kGTvq7hJD5c4hJBw"
+      },
+      "attestation_digest": "sha256:af887b2793f682c9523efce0045fca5a6b2253dea3ed309367c2f71ef9f179de"
+    },
+    "capsule_digest": "sha256:e1da129eb23400f09978adf77c4378c93cb5b5e3c48edbe35435155538d5761a"
+  },
+  "python_assurance_claim": {
+    "schema_version": "0.1.0",
+    "claim_type": "ASSURANCE_CLAIM",
+    "claim_id": "assure-0fc99053094847a3",
+    "timestamp": "2026-11-10T21:30:06Z",
+    "verifier_id": "ciaf-independent-verifier-01",
+    "capsule_id": "caps-python-signed-interop-01",
+    "capsule_digest": "sha256:e1da129eb23400f09978adf77c4378c93cb5b5e3c48edbe35435155538d5761a",
+    "capsule_valid": true,
+    "assurance_disposition": "ASSURED_AUTHORIZED_EXECUTION",
+    "checks": {
+      "schema_validation_passed": true,
+      "rfc8785_digests_valid": true,
+      "dual_key_trust_boundary_valid": true,
+      "ed25519_signatures_valid": true,
+      "policy_digest_binding_valid": true,
+      "grant_nonce_and_ttl_valid": true,
+      "hash_chain_continuity_valid": true,
+      "semantic_consistency_valid": true,
+      "scitt_inclusion_verified": null
+    },
+    "failed_controls": [],
+    "findings": [
+      {
+        "severity": "INFO",
+        "control_id": "CIAF-10",
+        "code": "ZERO_TRUST_VERIFICATION_PASSED",
+        "message": "All cryptographic, schema, hash-chain, and semantic checks passed (ASSURED_AUTHORIZED_EXECUTION)."
+      }
+    ],
+    "completeness_notice": "Local RFC 8785 SHA-256 hash-chaining verified (detects mid-chain tampering, deletion, or reordering). Grant TTL checks verify chronological consistency across issuer-asserted timestamps; defending against compromised-executor clock backdating and log-tail omission requires an external RFC 3161 TSA timestamp or IETF SCITT (RFC 9943 / RFC 9942 COSE Receipts) Merkle inclusion receipt.",
+    "signature": {
+      "algorithm": "Ed25519",
+      "canonicalization": "RFC8785-JCS",
+      "key_id": "py-verifier-ed25519-01",
+      "signed_payload_digest": "sha256:7b0fe718a19ed4d4cbb194f97ae2815e18c954918f6e68e42c3989f01162cada",
+      "sig_b64u": "AmCbNAB8xBwAZKZSChyf6_Jqr5C8BZwyNH7iF_nQIFrgTPR7MWA0YVyoXVSWEUZ1tbZz9WSYXpsYTHYavgX0BA"
+    },
+    "claim_digest": "sha256:dc1b1e6e88afe716c01f226012dd6bc99735ddb205d3a3ee3b5fa026b5ed6838"
+  }
+}

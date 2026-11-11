@@ -1,0 +1,34 @@
+CIAF-LCM Reference Repository (`ciaf-lcm-reference`) — Dual-License Overview
+============================================================================
+
+Copyright 2026 CIAF-LCM Working Group Contributors
+
+This repository is dual-licensed by artifact category so that normative
+governance specifications remain freely adaptable with attribution while schemas,
+SDKs, reference implementations, and verifiers remain Apache-2.0 compatible:
+
+1. CODE, SCHEMAS, TESTS & VERIFIER APPLICATIONS — Apache License 2.0
+   Applies to:
+     - `schemas/`
+     - `reference-implementation/`
+     - `examples/`
+     - `tests/`
+     - `apps/`
+     - `pyproject.toml`
+   SPDX-License-Identifier: Apache-2.0
+   Full license text: see `LICENSE-CODE`
+   Canonical URL: https://www.apache.org/licenses/LICENSE-2.0
+
+2. NORMATIVE SPECIFICATIONS, CONTROLS & CROSSWALKS — CC-BY-4.0
+   Applies to:
+     - `docs/`
+     - `controls/`
+     - `standards-crosswalks/`
+   SPDX-License-Identifier: CC-BY-4.0
+   Full attribution rules, deed summary, and legal code reference: see `LICENSE-SPEC`
+   Canonical Deed: https://creativecommons.org/licenses/by/4.0/
+   Canonical Legal Code: https://creativecommons.org/licenses/by/4.0/legalcode.en
+
+3. REPOSITORY DOCUMENTATION (`README.md`, `CONTRIBUTING.md`)
+   Dual-licensed under `CC-BY-4.0` and `Apache-2.0` at the recipient's option.
+
