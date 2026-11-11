@@ -12,6 +12,7 @@
     "verify:interop": "node scripts/verify_cross_lang.mjs"
   },
   "dependencies": {
+    "mermaid": "^12.3.0",
     "next": "^15.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -25,4 +26,3 @@
     "typescript": "^5.8.0"
   }
 }
-

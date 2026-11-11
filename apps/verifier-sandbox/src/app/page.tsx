@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import crossLangFixture from "@/fixtures/python_cross_lang_fixture.json";
+import { MermaidDiagram } from "@/components/MermaidDiagram";
 import { canonicalizeJcsStr, jcsSha256 } from "@/lib/jcs";
 import {
   AXIS_A_CONTROLS,
@@ -58,6 +59,16 @@ const INDUSTRY_NOTES: Record<
     ],
   },
 };
+
+const ARCHITECTURE_FLOWCHART = `flowchart LR
+    Owner["Accountable Owner & Policy Governance"] --> Reg["Authority & Policy Registry (CIAF-01..05, CIAF-12)"]
+    Agent["Controlled AI Runtime (Untrusted Proposal Only)"] -->|"1. Proposed Action"| GW["Pre-Execution Governance Gateway (gateway_key: CIAF-06, CIAF-07)"]
+    Reg -->|"Pinned Policy Digest & Scope"| GW
+    Human["Authorized Human Reviewer"] -.->|"Signed Escalation Approval"| GW
+    GW -->|"2. Nonce Grant (TTL <= 30s)"| Exec["Execution Service: payments.create (executor_key: CIAF-08, CIAF-11)"]
+    GW -->|"Signed AuthorizationClaim"| Ledger["Append-Only JCS Hash-Chain & Lazy Materializer (CIAF-09)"]
+    Exec -->|"Signed ExecutionClaim"| Ledger
+    Ledger -->|"On-Demand AuditCapsule"| Verifier["Stateless Verifier (CIAF-10) + IETF SCITT (RFC 9943 / 9942)"]`;
 
 export default function VerifierSandboxPage() {
   const [activeLabel, setActiveLabel] = useState<string>(
@@ -359,6 +370,14 @@ export default function VerifierSandboxPage() {
           </div>
         </div>
       </header>
+
+      {/* Five-Layer Governance & Dual-Key Trust Boundary Flowchart */}
+      <section>
+        <MermaidDiagram
+          chart={ARCHITECTURE_FLOWCHART}
+          title="Five-Layer Pre-Execution Governance & Dual-Key Trust Boundary (CIAF-01..12)"
+        />
+      </section>
 
       {/* Scenario & Adversarial Controls */}
       <section className="grid gap-4 lg:grid-cols-2">

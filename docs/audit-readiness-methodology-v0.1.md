@@ -22,11 +22,11 @@ Every assessment `MUST` evaluate three distinct evidentiary dimensions for each 
 
 ```mermaid
 flowchart LR
-    S1["Step 1: Inventory &<br/>Boundary Scoping"] --> S2["Step 2: Control Design<br/>Adequacy Review"]
-    S2 --> S3["Step 3: Cryptographic &<br/>Key-Boundary Inspection"]
-    S3 --> S4["Step 4: Lazy Capsule<br/>Sampling & Replay"]
-    S4 --> S5["Step 5: Adversarial<br/>Fault-Injection Testing"]
-    S5 --> S6["Step 6: 2-Axis Scoring &<br/>Override Determination"]
+    S1["Step 1: Inventory & Boundary Scoping"] --> S2["Step 2: Control Design Adequacy"]
+    S2 --> S3["Step 3: Dual-Key Boundary Inspection"]
+    S3 --> S4["Step 4: Lazy Capsule Sampling"]
+    S4 --> S5["Step 5: Adversarial Fault Testing"]
+    S5 --> S6["Step 6: 2-Axis Scoring & Gates"]
 ```
 
 ### Step 1 — Consequential Surface Inventory & Boundary Scoping

@@ -32,45 +32,45 @@ CIAF-LCM partitions AI tool governance and assurance into six distinct functiona
 flowchart TB
     subgraph Plane1["Plane 1: Organizational Governance & Registry (CIAF-01..05, CIAF-12)"]
         Owner["Accountable Human Owner"]
-        Reg["Authority & Policy Registry<br/>(Use Case, Delegation, RFC 8785 policy_digest, Revocation)"]
+        Reg["Authority & Policy Registry (Use Case, Delegation, JCS policy_digest, Revocation)"]
         Owner --> Reg
     end
 
     subgraph Plane2["Plane 2: Untrusted Capability Plane"]
-        Runtime["Controlled AI / Agent Runtime<br/>(agent_id: agent-finance-01)<br/>NO signing authority; proposes actions only"]
+        Runtime["Controlled AI / Agent Runtime (agent-finance-01: Zero Signing Authority)"]
     end
 
     subgraph Plane3["Plane 3: Pre-Execution Governance Gateway (CIAF-06, CIAF-07)"]
-        GW["Governance Gate<br/>Independent Key: gateway_key (OKP Ed25519)<br/>Outcomes: ALLOW | DENY | ESCALATE | INSPECT"]
-        Reviewer["Authorized Human Reviewer<br/>(CIAF-07 Threshold Escalation)"]
-        Reviewer -.->|Authenticated Adjudication| GW
+        GW["Governance Gate — gateway_key (ALLOW | DENY | ESCALATE | INSPECT)"]
+        Reviewer["Authorized Human Reviewer (CIAF-07 Threshold Signature)"]
+        Reviewer -.->|"Signed Adjudication"| GW
     end
 
     subgraph Plane4["Plane 4: Consequential Execution Boundary (CIAF-08, CIAF-11)"]
-        Exec["Execution Service (e.g., payments.create)<br/>Independent Key: executor_key (OKP Ed25519)<br/>Verifies Grant Sig, TTL <=30s, Nonce, request_digest, policy_digest"]
+        Exec["Execution Service (payments.create) — executor_key (Nonce, TTL <= 30s, JCS Digest)"]
     end
 
     subgraph Plane5["Plane 5: Evidence & Provenance Layer (CIAF-09)"]
-        Ledger["Low-Latency Append-Only JCS Event Ledger<br/>(previous_receipt_digest SHA-256 Hash Chain)"]
-        LCM["Lazy Capsule Materializer<br/>(On-Demand AuditCapsule Assembly)"]
+        Ledger["Low-Latency Append-Only JCS Event Ledger (previous_receipt_digest Chain)"]
+        LCM["Lazy Capsule Materializer (On-Demand AuditCapsule Assembly)"]
         Ledger --> LCM
     end
 
     subgraph Plane6["Plane 6: Independent Assurance & Transparency (CIAF-10)"]
-        SCITT["IETF SCITT (RFC 9943 / RFC 9942) Transparency Service<br/>(COSE_Sign1 + COSE Merkle Inclusion Receipts)"]
-        Verifier["Stateless Independent Verifier<br/>(AuditCapsule + Trusted OKP JWK Manifest -> AssuranceClaim)"]
+        SCITT["IETF SCITT (RFC 9943 / RFC 9942) Transparency Service (COSE Merkle Receipts)"]
+        Verifier["Stateless Independent Verifier (AuditCapsule + Trusted OKP JWKs -> AssuranceClaim)"]
     end
 
-    Reg -->|Pinned Policy & Delegation Scope| GW
-    Reg -.->|Pinned policy_digest| Exec
-    Runtime -->|1. Untrusted Action Proposal| GW
-    GW -->|2a. Signed AuthorizationClaim| Ledger
-    GW -->|2b. Short-Lived ExecutionGrant (ALLOW only)| Exec
-    Runtime -.->|3. Blocked if Direct Bypass Attempted| Exec
-    Exec -->|4. Signed ExecutionClaim (Executed or Security Exception)| Ledger
-    LCM -->|Materialized AuditCapsule| Verifier
-    Ledger -.->|Signed Statement Registration| SCITT
-    SCITT -.->|Inclusion Receipt| LCM
+    Reg -->|"Pinned Policy & Delegation Scope"| GW
+    Reg -.->|"Pinned policy_digest"| Exec
+    Runtime -->|"1. Untrusted Action Proposal"| GW
+    GW -->|"2a. Signed AuthorizationClaim"| Ledger
+    GW -->|"2b. Short-Lived ExecutionGrant (ALLOW)"| Exec
+    Runtime -.->|"3. Direct Bypass Blocked (CIAF-11)"| Exec
+    Exec -->|"4. Signed ExecutionClaim"| Ledger
+    LCM -->|"Materialized AuditCapsule"| Verifier
+    Ledger -.->|"Signed Statement Registration"| SCITT
+    SCITT -.->|"COSE Inclusion Receipt"| LCM
 ```
 
 ### 2.2 ASCII Trust-Boundary View

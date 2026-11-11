@@ -58,14 +58,14 @@ Capability  !=  Authority  !=  Authorization  !=  Execution  !=  Assurance
 
 ```mermaid
 flowchart LR
-    Owner["Accountable Owner<br/>& Policy Governance"] --> Reg["Authority & Policy Registry<br/>(CIAF-01..05, CIAF-12)"]
-    Agent["Controlled AI / Agent Runtime<br/>(Untrusted Proposal Only)"] -->|1. Proposed Action| GW["Pre-Execution Governance Gateway<br/>Ed25519 gateway_key (CIAF-06, CIAF-07)"]
-    Reg -->|Policy Digest & Scope| GW
-    Human["Authorized Human Reviewer"] -.->|Escalation Sign-Off| GW
-    GW -->|2. Short-Lived Nonce Grant <=30s| Exec["Execution Service: payments.create<br/>Ed25519 executor_key (CIAF-08, CIAF-11)"]
-    GW -->|Signed AuthorizationClaim| Ledger["Append-Only JCS Hash-Chain<br/>& Lazy Capsule Materializer (CIAF-09)"]
-    Exec -->|Signed ExecutionClaim| Ledger
-    Ledger -->|On-Demand AuditCapsule| Verifier["Stateless Independent Verifier<br/>(CIAF-10) + IETF SCITT RFC 9943/9942"]
+    Owner["Accountable Owner & Policy Governance"] --> Reg["Authority & Policy Registry (CIAF-01..05, CIAF-12)"]
+    Agent["Controlled AI Runtime (Untrusted Proposal Only)"] -->|"1. Proposed Action"| GW["Pre-Execution Governance Gateway (gateway_key: CIAF-06, CIAF-07)"]
+    Reg -->|"Pinned Policy Digest & Scope"| GW
+    Human["Authorized Human Reviewer"] -.->|"Signed Escalation Approval"| GW
+    GW -->|"2. Nonce Grant (TTL <= 30s)"| Exec["Execution Service: payments.create (executor_key: CIAF-08, CIAF-11)"]
+    GW -->|"Signed AuthorizationClaim"| Ledger["Append-Only JCS Hash-Chain & Lazy Materializer (CIAF-09)"]
+    Exec -->|"Signed ExecutionClaim"| Ledger
+    Ledger -->|"On-Demand AuditCapsule"| Verifier["Stateless Verifier (CIAF-10) + IETF SCITT (RFC 9943 / 9942)"]
 ```
 
 ### Runtime Interoperability & Reference Adapters
