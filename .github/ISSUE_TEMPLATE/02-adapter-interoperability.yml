@@ -1,0 +1,51 @@
+name: "Independent Runtime Adapter / Interop Submission"
+description: "Register or propose a cleanroom CIAF-LCM v0.1 producer, gateway sidecar, or verifier in Go, Rust, TypeScript, Java, Python, Envoy/OPA, or MCP."
+title: "[Adapter Interop] "
+labels: ["interoperability", "adapter"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        External runtimes and proxies conform to CIAF-LCM v0.1 when their emitted `AuditCapsule` bundles pass `IndependentVerifier` with **zero imports from internal `ciaf_lcm` producer classes** (modeled after `examples/independent_producer.py`).
+
+  - type: input
+    id: runtime_name
+    attributes:
+      label: "Adapter / Runtime Name & Language"
+      placeholder: "e.g., Envoy External Authz Filter (Rust) / MCP Tool Proxy (TypeScript)"
+    validations:
+      required: true
+
+  - type: input
+    id: repo_link
+    attributes:
+      label: "Repository or Pull Request URL"
+      placeholder: "https://github.com/..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: conformance_checks
+    attributes:
+      label: "Cleanroom Conformance Checklist"
+      options:
+        - label: "Zero coupling to `ciaf_lcm` internal producer helpers when serializing or signing claims."
+          required: true
+        - label: "Implements strict RFC 8785 (JCS) canonicalization (including `-0.0 -> \"0\"` and UTF-16 code-unit key sorting)."
+          required: true
+        - label: "Uses separate Ed25519 keypairs (`OKP` JWKs) for `PRE_EXECUTION_GOVERNANCE_GATEWAY` and `EXECUTION_SERVICE`."
+          required: true
+        - label: "Emits integer ISO-4217 minor currency units (`amount_minor_units`, `minor_unit_scale`) and `delegated_scope_snapshot`."
+          required: true
+        - label: "Includes positive `ALLOW`, blocked (`DENY` or `REJECTED_SECURITY_EXCEPTION`), and 1-byte tamper negative test vectors verified against `IndependentVerifier`."
+          required: true
+
+  - type: textarea
+    id: verifier_output
+    attributes:
+      label: "Sample `AssuranceClaim` Verification Output"
+      render: json
+      placeholder: Paste the resulting AssuranceClaim JSON emitted by Python IndependentVerifier or the Stateless Web Crypto Verifier.
+    validations:
+      required: true
+

@@ -6,6 +6,7 @@
 *Vendor-Neutral Reference Architecture, Control Catalog, Interoperability Profile, and Adversarial Assurance Suite for Consequential AI & Agentic Systems*
 
 [![Verified: Python + WebCrypto Interop](https://github.com/DenzilGreenwood/ciaf-lcm-reference/actions/workflows/verify.yml/badge.svg)](https://github.com/DenzilGreenwood/ciaf-lcm-reference/actions/workflows/verify.yml)
+[![GitHub Pages: Live Verifier & Specs](https://github.com/DenzilGreenwood/ciaf-lcm-reference/actions/workflows/pages.yml/badge.svg)](https://denzilgreenwood.github.io/ciaf-lcm-reference/)
 [![Spec License: CC BY 4.0](https://img.shields.io/badge/Spec_License-CC_BY_4.0-lightgrey.svg)](LICENSE-SPEC)
 [![Code License: Apache 2.0](https://img.shields.io/badge/Code_License-Apache_2.0-blue.svg)](LICENSE-CODE)
 [![Version: v0.1.1](https://img.shields.io/badge/Release-v0.1.1-emerald.svg)](pyproject.toml)
@@ -82,6 +83,13 @@ ciaf-lcm-reference/
 ├── LICENSE-CODE                                     # Apache License 2.0 (schemas, code, tests, web app)
 ├── LICENSE-SPEC                                     # CC-BY-4.0 summary, deed URL & attribution rules (specs)
 ├── CONTRIBUTING.md                                  # Vendor-neutral adapter & crosswalk contribution rules
+├── SECURITY.md                                      # Private cryptographic & boundary disclosure policy
+├── .github/
+│   ├── workflows/verify.yml                         # Python pytest + Web Crypto interop + static HTML CI
+│   ├── workflows/pages.yml                          # Auto-deploy static index.html & spec pages to GitHub Pages
+│   ├── ISSUE_TEMPLATE/                              # Structured RFC public comment & adapter interop forms
+│   ├── PULL_REQUEST_TEMPLATE.md                     # 6-invariant PR checklist & dual-license verification
+│   └── CODEOWNERS                                   # Automatic maintainer review assignment
 ├── pyproject.toml                                   # Python 3.11+ package & pytest configuration
 ├── docs/
 │   ├── reference-architecture-v0.1.md               # 6-plane normative architecture & 6-vector threat model
@@ -126,17 +134,17 @@ python -m venv .venv
 .\.venv\Scripts\python examples/independent_producer.py
 ```
 
-### 2. Interactive Receipt & Readiness Inspector (`apps/verifier-sandbox`)
+### 2. Static HTML Export & Interactive Verifier (`apps/verifier-sandbox`)
 
 ```powershell
 cd apps/verifier-sandbox
 npm install
-# Default repo URL is https://github.com/DenzilGreenwood/ciaf-lcm-reference (override via NEXT_PUBLIC_GITHUB_REPO_URL on forks)
+# Exports static HTML into out/ (index.html, specs/*/index.html, schemas/index.html, contribute/index.html)
 npm run build
 npm run dev
 ```
 
-Open `http://localhost:3000` to simulate `Allow`, `Deny`, and `Escalate` receipts using real browser Web Crypto Ed25519 keys or the Python-signed cross-language fixture, trigger **Tamper with Receipt**, **Simulate Replay Attack**, or **Rogue Gateway (`\$8,500` Unescalated `ALLOW`)** fault injections, inspect live browser RFC 8785 torture-vector timings, and evaluate the **12-Control 2-Axis Readiness Scorecard** (`Axis A: 10 Controls` vs. `Axis B: 2 Controls` across the 4 normative dispositions).
+Open `http://localhost:3000` (or the hosted GitHub Pages build at `https://denzilgreenwood.github.io/ciaf-lcm-reference/`) to inspect the live Stateless Ed25519 Receipt Verifier (`out/index.html`), browse rendered normative specifications (`/specs/`), explore Draft 2020-12 JSON Schemas (`/schemas/`), and submit structured public comments (`/contribute/`).
 
 ---
 

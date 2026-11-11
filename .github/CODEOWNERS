@@ -1,0 +1,12 @@
+# CIAF-LCM Reference Repository Code & Specification Owners
+# Automatically requests maintainer review on all normative, schema, cryptographic, and CI changes.
+
+*                               @DenzilGreenwood
+/docs/                          @DenzilGreenwood
+/controls/                      @DenzilGreenwood
+/standards-crosswalks/          @DenzilGreenwood
+/schemas/                       @DenzilGreenwood
+/reference-implementation/      @DenzilGreenwood
+/apps/verifier-sandbox/         @DenzilGreenwood
+/.github/                       @DenzilGreenwood
+

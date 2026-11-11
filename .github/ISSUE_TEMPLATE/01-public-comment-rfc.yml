@@ -1,0 +1,72 @@
+name: "Public Comment / Specification Critique (v0.1.1 RFC)"
+description: "Submit normative feedback on CIAF-LCM v0.1.1 specifications, controls, readiness scoring, or standards crosswalks (Open through Feb 10, 2027)."
+title: "[RFC v0.1.1] "
+labels: ["public-comment", "spec-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reviewing the **CIAF-LCM v0.1.1 Public Comment Draft** (open through **February 10, 2027**).
+        All normative prose in `docs/`, `controls/`, and `standards-crosswalks/` is vendor-neutral and licensed under **CC-BY-4.0**.
+
+  - type: dropdown
+    id: target_artifact
+    attributes:
+      label: "Target Specification, Catalog, Crosswalk, or Schema"
+      options:
+        - "Reference Architecture (docs/reference-architecture-v0.1.md)"
+        - "Normative Vocabulary (docs/vocabulary-v0.1.md)"
+        - "Control Catalog CIAF-01..12 (controls/ciaf-control-catalog-v0.1.md)"
+        - "Audit Readiness Methodology & Industry Profiles (docs/audit-readiness-methodology-v0.1.md)"
+        - "IETF SCITT RFC 9943 / RFC 9942 Profile (standards-crosswalks/ietf-scitt-profile-v0.1.md)"
+        - "NIST AI RMF 1.0 Crosswalk (standards-crosswalks/nist-ai-rmf-crosswalk-v0.1.md)"
+        - "ISO/IEC 42001:2023 Crosswalk (standards-crosswalks/iso-42001-crosswalk-v0.1.md)"
+        - "Draft 2020-12 JSON Schemas (schemas/*.v0.1.schema.json)"
+    validations:
+      required: true
+
+  - type: input
+    id: section_or_control
+    attributes:
+      label: "Section Number, Control ID, or JSON Path"
+      placeholder: "e.g., Section 3.3 / CIAF-08 / AuthorizationClaim.authority_context.delegated_scope_snapshot"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: comment_category
+    attributes:
+      label: "Comment Type"
+      options:
+        - "Normative Requirement / Security Boundary Clarification"
+        - "Audit Test Procedure or Readiness Scoring Rubric"
+        - "Standards Crosswalk or Regulatory Scope Citation"
+        - "Cryptographic / Schema Interoperability"
+        - "Editorial / Terminology Consistency"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem_statement
+    attributes:
+      label: "Finding, Ambiguity, or Gap"
+      description: "Describe the technical, audit, or standards ambiguity in the current text."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_change
+    attributes:
+      label: "Proposed Normative Text or Schema Revision"
+      description: "Provide concrete third-person specification language (RFC 2119 MUST / SHOULD / MAY) or JSON Schema diff."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: license_ack
+    attributes:
+      label: "Contribution Licensing & Vendor-Neutrality Confirmation"
+      options:
+        - label: "I confirm this comment contains vendor-neutral text suitable for licensing under CC-BY-4.0 (specs) and/or Apache-2.0 (schemas/code)."
+          required: true
+

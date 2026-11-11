@@ -1,0 +1,37 @@
+name: "Verifier, RFC 8785 Canonicalization, or Schema Bug"
+description: "Report a non-sensitive discrepancy in Python ciaf_lcm, Web Crypto verifier-sandbox, or Draft 2020-12 JSON Schemas."
+title: "[Bug] "
+labels: ["bug", "verification"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > **Security Note:** If this issue allows forging signatures, bypassing `nonce`/`TTL` enforcement, or evading `delegated_scope_snapshot` verification, do **not** file a public issue—report it privately via **[Security Advisories](https://github.com/DenzilGreenwood/ciaf-lcm-reference/security/advisories/new)** (see `SECURITY.md`).
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: "Affected Component"
+      options:
+        - "Python Reference Library (reference-implementation/python/ciaf_lcm/)"
+        - "Web Crypto Stateless Verifier (apps/verifier-sandbox/)"
+        - "Draft 2020-12 JSON Schemas (schemas/)"
+        - "Cross-Language Fixture / Cleanroom Producer (examples/)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Minimal Reproducible Capsule or Input Vector"
+      render: json
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_vs_actual
+    attributes:
+      label: "Expected vs. Actual Verification Disposition"
+    validations:
+      required: true
+

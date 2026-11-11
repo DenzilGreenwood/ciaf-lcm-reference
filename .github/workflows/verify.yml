@@ -53,11 +53,15 @@ jobs:
           python examples/export_cross_language_fixture.py
           node apps/verifier-sandbox/scripts/verify_cross_lang.mjs
 
-      - name: Install, type-check, and build Next.js Web Crypto inspector
+      - name: Install, type-check, and export static HTML verifier & spec pages
         working-directory: apps/verifier-sandbox
         run: |
           npm ci
           npm run verify:interop
           npm run typecheck
           npm run build
+          test -f out/index.html
+          test -f out/specs/index.html
+          test -f out/schemas/index.html
+          test -f out/contribute/index.html
 

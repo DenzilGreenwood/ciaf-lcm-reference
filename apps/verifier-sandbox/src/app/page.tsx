@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import crossLangFixture from "@/fixtures/python_cross_lang_fixture.json";
 import { canonicalizeJcsStr, jcsSha256 } from "@/lib/jcs";
 import {
@@ -300,30 +301,30 @@ export default function VerifierSandboxPage() {
               >
                 {copiedNotice ? "Copied JSON!" : "Copy Capsule JSON"}
               </button>
-              <a
-                href={`${repoBaseUrl}/blob/main/controls/ciaf-control-catalog-v0.1.md`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/specs/control-catalog/"
                 className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-slate-300 hover:border-cyan-700 hover:text-cyan-200 transition"
               >
-                Control Catalog (CIAF-01..12) ↗
-              </a>
-              <a
-                href={`${repoBaseUrl}/tree/main/schemas`}
-                target="_blank"
-                rel="noopener noreferrer"
+                Control Catalog (CIAF-01..12) →
+              </Link>
+              <Link
+                href="/schemas/"
                 className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-slate-300 hover:border-cyan-700 hover:text-cyan-200 transition"
               >
-                JSON Schemas (2020-12) ↗
-              </a>
-              <a
-                href={`${repoBaseUrl}/blob/main/standards-crosswalks/ietf-scitt-profile-v0.1.md`}
-                target="_blank"
-                rel="noopener noreferrer"
+                JSON Schemas (2020-12) →
+              </Link>
+              <Link
+                href="/specs/ietf-scitt-profile/"
                 className="rounded-lg border border-slate-700 bg-slate-950/80 px-3 py-1.5 text-slate-300 hover:border-cyan-700 hover:text-cyan-200 transition"
               >
-                IETF SCITT (RFC 9943 / 9942) ↗
-              </a>
+                IETF SCITT (RFC 9943 / 9942) →
+              </Link>
+              <Link
+                href="/contribute/"
+                className="rounded-lg border border-emerald-700/70 bg-emerald-950/50 px-3 py-1.5 text-emerald-200 hover:bg-emerald-900/60 transition"
+              >
+                Submit Public Comment →
+              </Link>
             </div>
           </div>
 
