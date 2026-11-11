@@ -22,12 +22,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Set up Node.js 22 (Web Crypto Ed25519)
-        uses: actions/setup-node@v4
+      - name: Set up Node.js 24 (Web Crypto Ed25519)
+        uses: actions/setup-node@v5
         with:
-          node-version: "22"
+          node-version: "24"
           cache: "npm"
           cache-dependency-path: apps/verifier-sandbox/package-lock.json
 
@@ -51,7 +51,7 @@ jobs:
           test -f out/contribute/index.html
 
       - name: Upload static HTML artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: apps/verifier-sandbox/out
 
