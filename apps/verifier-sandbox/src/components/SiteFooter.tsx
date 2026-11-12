@@ -15,6 +15,10 @@ export function SiteFooter() {
           <div className="font-mono text-[11px] text-slate-400">
             Invariant: Capability != Authority != Authorization != Execution != Assurance
           </div>
+          <div className="text-[11px] text-slate-300">
+            Specification Editor: <span className="font-semibold text-slate-200">Denzil James Greenwood, AIGP</span>{" "}
+            • Independent open reference specification (not affiliated with or endorsed by NIST, ISO/IEC, or the IETF).
+          </div>
           <div>
             Specifications &amp; Crosswalks licensed under{" "}
             <a

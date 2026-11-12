@@ -26,36 +26,174 @@ type InspectorTab = "CLAIMS" | "CANONICAL_JCS" | "KEY_MANIFEST" | "ASSURANCE_JSO
 type IndustryProfile = "BANKING" | "HEALTHCARE" | "TRIBAL_GAMING";
 type KeyCustodyMode = "PYTHON_DETERMINISTIC_FIXTURE" | "BROWSER_SANDBOX_KEYS";
 
+const EXT_LINK_CLS = "text-cyan-300 underline decoration-cyan-700/70 underline-offset-2 hover:text-cyan-200";
+
 const INDUSTRY_NOTES: Record<
   IndustryProfile,
-  { title: string; subtitle: string; bullets: string[] }
+  { title: string; subtitle: string; bullets: React.ReactNode[] }
 > = {
   BANKING: {
     title: "Regional Banking & Treasury Operations",
     subtitle: "Post-SR 11-7 Supervisory Baseline (2026: SR 26-2 / OCC 2026-13 / FIL-15-2026)",
     bullets: [
-      "Primary MRM Instruments (April 17, 2026): Federal Reserve SR 26-2, OCC Bulletin 2026-13, and FDIC FIL-15-2026 rescinded and superseded 2011 MRM guidance (SR 11-7 / OCC 2011-12 / FIL-22-2017) and 2021 BSA/AML MRM statements (SR 21-8 / OCC 2021-19 / FIL-27-2021). Generative and agentic AI are explicitly excluded from direct MRM scope as 'novel and rapidly evolving,' while requiring governance under broader safety-and-soundness risk programs.",
-      "Forthcoming AI Guidance (RFI): In the April 17, 2026 issuance, the Fed, OCC, and FDIC signaled a forthcoming Request for Information (RFI) on banks' use of generative and agentic AI; exclusion from SR 26-2 does not create a supervisory safe harbor.",
-      "Third-Party Risk Management (TPRM) Applies: External foundation models, hosted agent APIs, and third-party guardrails remain governed under the June 2023 Interagency Guidance on Third-Party Relationships (SR 23-4 / OCC 2023-17 / FIL-29-2023), which stays in force while the OCC/Fed/FDIC/NCUA proposed TPRM revision (91 FR 58536, Sept. 15, 2026; OCC Bulletin 2026-46 — pending finalization) awaits final agency action.",
-      "Operational Controls (CIAF-04..08): Consequential treasury/payment agents (payments.create) require pinned delegated limits in ISO-4217 integer minor currency units (CIAF-04), segregation-of-duties human escalation signatures (CIAF-07), rolling velocity caps, and dual-key <=30s single-use grants (CIAF-08) to block TOCTOU mutations ($500.00 -> $50,000.00) prior to settlement.",
+      <>
+        <strong>Primary MRM Instruments (April 17, 2026):</strong>{" "}
+        <a
+          href="https://www.federalreserve.gov/supervisionreg/srletters/sr2602.htm"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          Federal Reserve SR 26-2 ↗
+        </a>
+        ,{" "}
+        <a
+          href="https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-13.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          OCC Bulletin 2026-13 ↗
+        </a>
+        , and{" "}
+        <a
+          href="https://www.fdic.gov/news/financial-institution-letters"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          FDIC FIL-15-2026 ↗
+        </a>{" "}
+        rescinded 2011 MRM guidance (SR 11-7 / OCC 2011-12 / FIL-22-2017) and 2021 BSA/AML MRM
+        statements (SR 21-8 / OCC 2021-19 / FIL-27-2021). Generative and agentic AI are explicitly
+        excluded from direct MRM scope as &ldquo;novel and rapidly evolving,&rdquo; while requiring
+        governance under broader safety-and-soundness risk programs.
+      </>,
+      <>
+        <strong>Forthcoming AI Guidance (RFI):</strong> In the April 17, 2026 issuance, the Fed,
+        OCC, and FDIC signaled a forthcoming Request for Information (RFI) on banks&apos; use of
+        generative and agentic AI; exclusion from SR 26-2 does not create a supervisory safe harbor.
+      </>,
+      <>
+        <strong>Third-Party Risk Management (TPRM) Applies:</strong> External foundation models,
+        hosted agent APIs, and third-party guardrails remain governed under the June 2023
+        Interagency TPRM Guidance (
+        <a
+          href="https://www.federalreserve.gov/supervisionreg/srletters/sr2304.htm"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          SR 23-4 ↗
+        </a>{" "}
+        / OCC 2023-17 / FIL-29-2023), which stays in force while the proposed TPRM revision (
+        <a
+          href="https://www.federalregister.gov/citation/91-FR-58536"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          91 FR 58536 ↗
+        </a>
+        , Sept. 15, 2026;{" "}
+        <a
+          href="https://www.occ.gov/news-issuances/bulletins/2026/bulletin-2026-46.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          OCC Bulletin 2026-46 ↗
+        </a>{" "}
+        — pending finalization) awaits final agency action.
+      </>,
+      <>
+        <strong>Operational Controls (CIAF-04..08):</strong> Consequential treasury/payment agents (
+        <code className="text-cyan-200">payments.create</code>) require pinned delegated limits in
+        ISO-4217 integer minor currency units (<code className="text-cyan-200">CIAF-04</code>),
+        segregation-of-duties human escalation signatures (
+        <code className="text-cyan-200">CIAF-07</code>), rolling velocity caps, and dual-key
+        &lt;=30s single-use grants (<code className="text-cyan-200">CIAF-08</code>) to block TOCTOU
+        mutations ($500.00 → $50,000.00) prior to settlement.
+      </>,
     ],
   },
   HEALTHCARE: {
     title: "Healthcare Systems (HIPAA Security & Privacy Safeguards)",
     subtitle: "45 CFR § 164.312 Technical Safeguards & Minimum Necessary ePHI",
     bullets: [
-      "Scopes domain-neutral agent delegations (CIAF-04) to the minimum ePHI tool surface needed for the registered clinical or revenue-cycle business_purpose (CIAF-01).",
-      "Enforces independent HUMAN_REVIEWER cryptographic adjudication (CIAF-07) before clinical order or prior-authorization mutations.",
-      "Requires >=128-bit salted RFC 8785 SHA-256 or HMAC-SHA256 commitments before anchoring ePHI digests in external IETF SCITT (RFC 9943 / RFC 9942) logs to prevent low-entropy brute-force.",
+      <>
+        Scopes domain-neutral agent delegations (<code className="text-cyan-200">CIAF-04</code>) to
+        the minimum ePHI tool surface needed for the registered clinical or revenue-cycle{" "}
+        <code className="text-cyan-200">business_purpose</code> under{" "}
+        <a
+          href="https://www.ecfr.gov/current/title-45/subtitle-A/subchapter-C/part-164"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          45 CFR Part 164 ↗
+        </a>{" "}
+        (<code className="text-cyan-200">CIAF-01</code>).
+      </>,
+      <>
+        Enforces independent <code className="text-cyan-200">HUMAN_REVIEWER</code> cryptographic
+        adjudication (<code className="text-cyan-200">CIAF-07</code>) before clinical order or
+        prior-authorization mutations.
+      </>,
+      <>
+        Requires &gt;=128-bit salted RFC 8785 SHA-256 or HMAC-SHA256 commitments before anchoring
+        ePHI digests in external IETF SCITT (
+        <a
+          href="https://www.rfc-editor.org/rfc/rfc9943"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          RFC 9943 ↗
+        </a>{" "}
+        /{" "}
+        <a
+          href="https://www.rfc-editor.org/rfc/rfc9942"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          RFC 9942 ↗
+        </a>
+        ) logs to prevent low-entropy brute-force.
+      </>,
     ],
   },
   TRIBAL_GAMING: {
     title: "Tribal Gaming Operations (NIGC MICS / TICS & Compacts)",
     subtitle: "25 CFR Part 543 (Class II) vs. Tribal-State Compact (Class III) Boundaries",
     bullets: [
-      "Separates Class II MICS/TICS workflows from Class III compacted gaming systems inside digest-pinned policy_document scopes (CIAF-01, CIAF-05).",
-      "Gates patron wallet transfers, promotional credit awards, and cage adjustments via CIAF-06 thresholds and pit/cage supervisor sign-off (CIAF-07).",
-      "Delivers offline-verifiable AuditCapsules (CIAF-10) and CIAF-11 security exception alerts to Surveillance and independent TGRA revenue auditors.",
+      <>
+        Separates Class II MICS/TICS workflows (
+        <a
+          href="https://www.ecfr.gov/current/title-25/chapter-III/subchapter-D/part-543"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={EXT_LINK_CLS}
+        >
+          25 CFR Part 543 ↗
+        </a>
+        ) from Class III compacted gaming systems inside digest-pinned{" "}
+        <code className="text-cyan-200">policy_document</code> scopes (
+        <code className="text-cyan-200">CIAF-01</code>,{" "}
+        <code className="text-cyan-200">CIAF-05</code>).
+      </>,
+      <>
+        Gates patron wallet transfers, promotional credit awards, and cage adjustments via{" "}
+        <code className="text-cyan-200">CIAF-06</code> thresholds and pit/cage supervisor sign-off (
+        <code className="text-cyan-200">CIAF-07</code>).
+      </>,
+      <>
+        Delivers offline-verifiable <code className="text-cyan-200">AuditCapsules</code> (
+        <code className="text-cyan-200">CIAF-10</code>) and{" "}
+        <code className="text-cyan-200">CIAF-11</code> security exception alerts to Surveillance and
+        independent TGRA revenue auditors.
+      </>,
     ],
   },
 };
@@ -83,7 +221,9 @@ export default function VerifierSandboxPage() {
   const [trustedKeys, setTrustedKeys] = useState<TrustedKeyEntry[]>(
     () => structuredClone(crossLangFixture.trusted_key_manifest) as TrustedKeyEntry[]
   );
-  const [assurance, setAssurance] = useState<AssuranceClaim | null>(null);
+  const [assurance, setAssurance] = useState<AssuranceClaim | null>(
+    () => structuredClone(crossLangFixture.python_assurance_claim) as AssuranceClaim
+  );
   const [jcsParityStatus, setJcsParityStatus] = useState<{
     checked: boolean;
     jcsMatch: boolean;
@@ -93,10 +233,10 @@ export default function VerifierSandboxPage() {
     durationMs: number;
   }>({
     checked: false,
-    jcsMatch: false,
-    digestMatch: false,
-    ed25519Verified: false,
-    digest: "",
+    jcsMatch: true,
+    digestMatch: true,
+    ed25519Verified: true,
+    digest: crossLangFixture.jcs_torture_vector.expected_sha256,
     durationMs: 0,
   });
   const [inspectorTab, setInspectorTab] = useState<InspectorTab>("CLAIMS");
@@ -344,7 +484,7 @@ export default function VerifierSandboxPage() {
             <div className="flex flex-wrap items-center gap-2">
               <span
                 className={`inline-block h-2.5 w-2.5 rounded-full ${
-                  liveParityAllPassed ? "bg-emerald-400" : "bg-amber-400"
+                  liveParityAllPassed ? "bg-emerald-400" : "bg-cyan-400"
                 }`}
               />
               <span className="font-semibold text-slate-200">
@@ -352,11 +492,11 @@ export default function VerifierSandboxPage() {
               </span>
               <span
                 className={
-                  liveParityAllPassed ? "text-emerald-400 font-bold" : "text-amber-400"
+                  liveParityAllPassed ? "text-emerald-400 font-bold" : "text-cyan-300"
                 }
               >
                 {!jcsParityStatus.checked
-                  ? "COMPUTING IN BROWSER..."
+                  ? "Interop Fixture Ready • Verifying Live SubtleCrypto..."
                   : `JCS=${String(jcsParityStatus.jcsMatch)} | SHA256=${String(
                       jcsParityStatus.digestMatch
                     )} | Ed25519=${String(jcsParityStatus.ed25519Verified)} (${
@@ -365,17 +505,71 @@ export default function VerifierSandboxPage() {
               </span>
             </div>
             <div className="text-[11px] text-slate-400 truncate max-w-lg">
-              Live Digest (-0.0, U+1F600 &lt; U+E000): {jcsParityStatus.digest || "computing..."}
+              Live Digest (-0.0, U+1F600 &lt; U+E000): {jcsParityStatus.digest}
             </div>
           </div>
         </div>
       </header>
 
-      {/* Five-Layer Governance & Dual-Key Trust Boundary Flowchart */}
+      {/* Plain-Language Executive Summary & Scope Boundaries */}
+      <section className="grid gap-4 lg:grid-cols-3">
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+          <div className="text-xs font-mono font-bold uppercase tracking-wider text-cyan-300">
+            What Problem This Solves &amp; For Whom
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Built for <strong>platform engineers, CISOs, and internal/external auditors</strong>.
+            When AI agents call real-world tools (moving funds, updating clinical records, or
+            issuing gaming credits), prompts and mutable logs cannot prove an action was permitted.
+            CIAF-LCM places an independent <strong>Pre-Execution Governance Gateway</strong> and a{" "}
+            <strong>Dual-Key Execution Service</strong> in front of consequential APIs, producing
+            tamper-evident <code className="text-cyan-200">AuditCapsules</code> any auditor can
+            verify offline.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+          <div className="text-xs font-mono font-bold uppercase tracking-wider text-amber-300">
+            Scope Boundary: Blast Radius != Semantic Truth
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            CIAF-LCM governs <strong>runtime action authorization and audit provenance</strong>—it
+            does <em>not</em> replace dataset bias, privacy, fairness, or statistical model-quality
+            governance. Cryptographic verification proves an untrusted agent stayed within delegated
+            bounds (allowlisted counterparties, integer minor-unit ceilings, velocity caps, signed
+            human escalation) under a named <code className="text-cyan-200">accountable_owner</code>
+            ; upstream fraud/invoice controls still determine whether an in-scope request was
+            semantically sound.
+          </p>
+        </div>
+
+        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 space-y-2">
+          <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300">
+            Stateful Executor vs. Stateless Verifier
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+            Runtime <strong>Execution Services (<code className="text-emerald-200">CIAF-08</code>) are stateful</strong>{" "}
+            (enforcing atomic distributed <code className="text-emerald-200">SET NX EX</code>{" "}
+            single-use nonces and policy-configurable <code className="text-emerald-200">&lt;=30s</code>{" "}
+            default / <code className="text-emerald-200">&lt;=300s</code> max TTLs), whereas
+            post-hoc <strong>Independent Verifiers (<code className="text-emerald-200">CIAF-10</code>) are stateless</strong>.
+            Four role-isolated keys (<code className="text-emerald-200">Registry</code>,{" "}
+            <code className="text-emerald-200">Gateway</code>,{" "}
+            <code className="text-emerald-200">Reviewer</code>,{" "}
+            <code className="text-emerald-200">Executor</code>) bound single-key compromise;{" "}
+            <Link href="/specs/reference-architecture/" className={EXT_LINK_CLS}>
+              v0.2 roadmap →
+            </Link>{" "}
+            tracks key-rotation epochs &amp; policy linting.
+          </p>
+        </div>
+      </section>
+
+      {/* Reference Control Flow & Dual-Key Trust Boundary Flowchart */}
       <section>
         <MermaidDiagram
           chart={ARCHITECTURE_FLOWCHART}
-          title="Five-Layer Pre-Execution Governance & Dual-Key Trust Boundary (CIAF-01..12)"
+          title="Reference Control Flow & Dual-Key Trust Boundary (CIAF-01..12)"
         />
       </section>
 
@@ -383,22 +577,26 @@ export default function VerifierSandboxPage() {
       <section className="grid gap-4 lg:grid-cols-2">
         <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 space-y-3">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-cyan-400">
-            1. Simulate Governance Flows (`agent-finance-01` -&gt; `payments.create`)
+            1. Simulate Governance Flows (
+            <code className="text-cyan-200 normal-case">agent-finance-01</code> →{" "}
+            <code className="text-cyan-200 normal-case">payments.create</code>)
           </h2>
           <p className="text-xs text-slate-400">
-            Generate fresh in-browser Dual-Key Web Crypto Ed25519 receipts (`amount_minor_units`,
-            `minor_unit_scale: 2`) or reload the deterministic Python-signed interop capsule.
+            Generate fresh in-browser Dual-Key Web Crypto Ed25519 receipts (
+            <code className="text-cyan-200">amount_minor_units</code>,{" "}
+            <code className="text-cyan-200">minor_unit_scale: 2</code>) or reload the deterministic
+            Python-signed interop capsule.
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={handleLoadPythonFixture}
               className="rounded-lg border border-cyan-700/70 bg-cyan-950/50 px-3 py-2 text-xs font-medium text-cyan-200 hover:bg-cyan-900/60 transition cursor-pointer disabled:opacity-50"
             >
               Python Interop Capsule ($450.00)
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "ALLOW",
@@ -410,7 +608,7 @@ export default function VerifierSandboxPage() {
               Simulate ALLOW ($450.00)
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "DENY",
@@ -422,11 +620,11 @@ export default function VerifierSandboxPage() {
               Simulate DENY ($75,000.00)
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "ESCALATE",
-                  "WebCrypto ESCALATE -> Signed Human Approval ($12,500.00)"
+                  "WebCrypto ESCALATE → Signed Human Approval ($12,500.00)"
                 )
               }
               className="rounded-lg border border-indigo-700/70 bg-indigo-950/50 px-3 py-2 text-xs font-medium text-indigo-200 hover:bg-indigo-900/60 transition cursor-pointer disabled:opacity-50"
@@ -442,22 +640,22 @@ export default function VerifierSandboxPage() {
           </h2>
           <p className="text-xs text-slate-400">
             Attack the active capsule or simulate replay, key-forgery, and rogue-gateway violations
-            caught by the Stateless Verifier (`CIAF-10`).
+            caught by the Stateless Verifier (<code className="text-rose-200">CIAF-10</code>).
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={handleTamperReceipt}
               className="rounded-lg border border-rose-700/80 bg-rose-950/60 px-3 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-900/70 transition cursor-pointer disabled:opacity-50"
             >
               Tamper Receipt ($45,000.00)
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "REPLAY_CONTAINED",
-                  "Replay Attack -> Blocked by Executor (CIAF-08 / CIAF-11)"
+                  "Replay Attack → Blocked by Executor (CIAF-08 / CIAF-11)"
                 )
               }
               className="rounded-lg border border-amber-700/80 bg-amber-950/60 px-3 py-2 text-xs font-semibold text-amber-200 hover:bg-amber-900/70 transition cursor-pointer disabled:opacity-50"
@@ -465,7 +663,7 @@ export default function VerifierSandboxPage() {
               Simulate Replay (Contained)
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "UNBLOCKED_REPLAY_VIOLATION",
@@ -477,14 +675,14 @@ export default function VerifierSandboxPage() {
               Inject Duplicate Nonce
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={handleDeleteChainLink}
               className="rounded-lg border border-rose-700/80 bg-rose-950/60 px-3 py-2 text-xs font-semibold text-rose-200 hover:bg-rose-900/70 transition cursor-pointer disabled:opacity-50"
             >
               Delete Hash-Chain Receipt
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "WRONG_KEY_FORGERY",
@@ -496,7 +694,7 @@ export default function VerifierSandboxPage() {
               Forge with Gateway Key
             </button>
             <button
-              disabled={busy}
+              disabled={busy || !jcsParityStatus.checked}
               onClick={() =>
                 handleSimulate(
                   "ROGUE_GATEWAY_SCOPE_BYPASS",
@@ -704,13 +902,25 @@ export default function VerifierSandboxPage() {
       {/* Interactive 2-Axis Per-Control Audit Readiness Scorecard */}
       <section className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 space-y-6">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-white">
-              4. Interactive 2-Axis Per-Control Readiness Scorecard (`CIAF-01`..`CIAF-12`)
-            </h2>
+          <div className="space-y-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h2 className="text-lg font-semibold text-white">
+                4. Illustrative 2-Axis Pre-Audit Readiness Estimator (
+                <code className="text-cyan-200 text-base">CIAF-01</code>..
+                <code className="text-cyan-200 text-base">CIAF-12</code>)
+              </h2>
+              <span className="rounded border border-amber-700/60 bg-amber-950/50 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-wider text-amber-200">
+                Self-Assessed Rubric Estimator • Not an External Audit Opinion
+              </span>
+            </div>
             <p className="text-xs text-slate-400">
-              Partitions Axis A (`10` Design &amp; Runtime Controls) and Axis B (`2` Provenance &amp;
-              Verification Controls) without single-score blending (`CIAF-LCM-AUDIT-v0.1.1`).
+              Partitions Axis A (<code className="text-cyan-200">10</code> Design &amp; Runtime
+              Controls) and Axis B (<code className="text-emerald-200">2</code> Provenance &amp;
+              Verification Controls) without single-score blending (
+              <code className="text-slate-200">CIAF-LCM-AUDIT-v0.1.1</code>). Unlike the
+              cryptographic <code className="text-cyan-200">AssuranceClaim</code> verifier above,
+              these <code className="text-slate-200">0–4</code> sliders model pre-audit readiness
+              gates.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -744,7 +954,7 @@ export default function VerifierSandboxPage() {
               }
               className="rounded-lg border border-amber-700/70 bg-amber-950/50 px-3 py-1.5 text-xs font-medium text-amber-200 hover:bg-amber-900/60 cursor-pointer"
             >
-              Preset: Missing Kill-Switch (CIAF-12=1/4 -&gt; Gate 3)
+              Preset: Missing Kill-Switch (CIAF-12=1/4 → Gate 3)
             </button>
             <button
               onClick={() =>
@@ -892,7 +1102,27 @@ export default function VerifierSandboxPage() {
                   }
                   className="accent-emerald-500 shrink-0"
                 />
-                <span>IETF SCITT (RFC 9943 / 9942) + External Timestamp Active</span>
+                <span>
+                  IETF SCITT (
+                  <a
+                    href="https://www.rfc-editor.org/rfc/rfc9943"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={EXT_LINK_CLS}
+                  >
+                    RFC 9943 ↗
+                  </a>{" "}
+                  /{" "}
+                  <a
+                    href="https://www.rfc-editor.org/rfc/rfc9942"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={EXT_LINK_CLS}
+                  >
+                    RFC 9942 ↗
+                  </a>
+                  ) + External Timestamp Active
+                </span>
               </label>
               <label className="flex items-center gap-2.5 rounded-lg border border-rose-900/50 bg-rose-950/20 px-3 py-2.5 cursor-pointer text-rose-300 hover:border-rose-700/70 transition">
                 <input
@@ -908,6 +1138,23 @@ export default function VerifierSandboxPage() {
                 />
                 <span>Fault: Shared Gateway/Executor Signing Keys (Gate 2)</span>
               </label>
+            </div>
+
+            <div className="rounded-lg border border-slate-800 bg-slate-900/60 p-3 text-[11px] text-slate-400 leading-relaxed">
+              <strong className="text-slate-200">Gate Threshold Rationale:</strong> Technical
+              enforcement gates (<code className="text-cyan-200">CIAF-06</code>,{" "}
+              <code className="text-cyan-200">CIAF-08</code>,{" "}
+              <code className="text-cyan-200">CIAF-09</code>,{" "}
+              <code className="text-cyan-200">CIAF-10</code>,{" "}
+              <code className="text-cyan-200">CIAF-12</code>) trigger{" "}
+              <code className="text-rose-300">NOT_AUDIT_READY</code> at{" "}
+              <code className="text-slate-200">&lt;= 1</code> because Score{" "}
+              <code className="text-slate-200">1</code> represents prompt-only guardrails or manual
+              redeployment. <code className="text-cyan-200">CIAF-02</code> triggers Gate 3 at{" "}
+              <code className="text-slate-200">== 0</code> (orphaned/bot-owned unowned risk), whereas
+              Score <code className="text-slate-200">1</code> (human owner assigned in governance
+              records, pending cryptographic registry binding) triggers{" "}
+              <code className="text-amber-200">CONDITIONAL_REMEDIATION_REQUIRED</code>.
             </div>
           </div>
 
@@ -927,7 +1174,9 @@ export default function VerifierSandboxPage() {
                       : "border-rose-500/70 bg-rose-950/40 text-rose-200"
                 }`}
               >
-                <div className="text-xs uppercase opacity-80">Normative Readiness Disposition</div>
+                <div className="text-xs uppercase opacity-80">
+                  Self-Assessed Rubric Disposition (Illustrative)
+                </div>
                 <div className="mt-1 text-base sm:text-lg font-bold break-all">
                   {readiness.readinessDisposition}
                 </div>

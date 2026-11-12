@@ -1,0 +1,39 @@
+title: "[RFC v0.1.1] "
+labels:
+  - "public-comment"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### CIAF-LCM v0.1.1 Open Public Comment & RFC Discussion
+        Use this structured thread to discuss normative architecture choices, scoring rubric calibration (`CIAF-01`–`CIAF-12`), key-rotation semantics, or standards crosswalk alignments (`NIST AI RMF 1.0`, `ISO/IEC 42001:2023`, `IETF SCITT RFC 9943 / RFC 9942`).
+  - type: dropdown
+    id: target_artifact
+    attributes:
+      label: Target Specification, Schema, or Profile
+      options:
+        - "Reference Architecture (CIAF-LCM-ARCH-v0.1.1)"
+        - "Control Catalog CIAF-01..12 (CIAF-LCM-CTRL-v0.1.1)"
+        - "Audit Readiness Methodology & Sector Profiles (CIAF-LCM-AUDIT-v0.1.1)"
+        - "IETF SCITT RFC 9943 / 9942 Profile (CIAF-LCM-PROFILE-SCITT-v0.1)"
+        - "NIST AI RMF 1.0 / ISO 42001:2023 Crosswalks"
+        - "Draft 2020-12 Wire JSON Schemas"
+        - "v0.2 Roadmap (Key Rotation Validity Windows / Policy Linting)"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Observation or Proposed Refinement
+      description: Cite specific section numbers, control IDs, or threat vectors where applicable.
+      placeholder: "e.g., Section 3.6 / trusted_keys: Proposal for valid_from and valid_until rotation epochs..."
+    validations:
+      required: true
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Security, Audit, or Operational Rationale
+      description: Explain how this affects runtime enforcement, offline verification, or regulatory examination readiness.
+    validations:
+      required: true
+

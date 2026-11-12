@@ -1,0 +1,29 @@
+title: "[Adapter] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Cleanroom Adapter & Verifier Show & Tell
+        Share independent Gateways, Execution Service sidecars, MCP proxies, or Stateless Verifiers that produce or validate `AuditCapsule` (`schema_version: "0.1.0"`) bundles.
+  - type: input
+    id: repo_link
+    attributes:
+      label: Repository or Demo URL
+      placeholder: "https://github.com/your-org/ciaf-lcm-rust-verifier"
+    validations:
+      required: true
+  - type: input
+    id: language_crypto
+    attributes:
+      label: Language, JCS Serializer & Ed25519 Library
+      placeholder: "e.g., Rust + serde_jcs + ed25519-dalek (Apache-2.0)"
+    validations:
+      required: true
+  - type: textarea
+    id: interop_summary
+    attributes:
+      label: Interoperability & Verification Summary
+      description: Describe which controls (`CIAF-01`–`CIAF-12`) or torture vectors (`python_cross_lang_fixture.json`) your implementation exercises.
+    validations:
+      required: true
+

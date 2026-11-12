@@ -45,6 +45,7 @@ jobs:
           npm run verify:interop
           npm run typecheck
           npm run build
+          test -f out/.nojekyll
           test -f out/index.html
           test -f out/specs/index.html
           test -f out/schemas/index.html

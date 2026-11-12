@@ -1,0 +1,33 @@
+title: "[Q&A] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Implementation, Cryptography & Integration Q&A
+        Ask technical questions about `RFC 8785 (JCS)` byte serialization, `Ed25519` OKP JWKs (`RFC 8037`), distributed stateful executor `nonce` stores (`SET NX EX`), or offline capsule verification.
+  - type: dropdown
+    id: component_plane
+    attributes:
+      label: Architectural Plane
+      options:
+        - "Plane 1: Authority & Policy Registry (CIAF-01..05, CIAF-12)"
+        - "Plane 3: Pre-Execution Governance Gateway (CIAF-06, CIAF-07)"
+        - "Plane 4: Stateful Execution Service & Nonce Store (CIAF-08, CIAF-11)"
+        - "Plane 5: Append-Only JCS Hash-Chain & Lazy Materializer (CIAF-09)"
+        - "Plane 6: Stateless Verifier & IETF SCITT (CIAF-10 / RFC 9943)"
+        - "RFC 8785 Canonicalization / Cross-Language SDK Parity"
+    validations:
+      required: true
+  - type: input
+    id: runtime_stack
+    attributes:
+      label: Language / Runtime Environment
+      placeholder: "e.g., Go 1.24, Rust, Python 3.12, Node.js 24 Web Crypto, Envoy/OPA"
+  - type: textarea
+    id: question
+    attributes:
+      label: Question & Reproducible Context
+      description: Include relevant non-sensitive JSON snippets, JCS hex/UTF-8 vectors, or error codes if troubleshooting parity.
+    validations:
+      required: true
+

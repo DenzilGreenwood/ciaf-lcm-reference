@@ -229,4 +229,14 @@ Conformant Gateways, Execution Services, and Independent Verifiers `SHOULD` emit
 | `REQUEST_DIGEST_MISMATCH` | `TOCTOU_PAYLOAD_TAMPER` | `CIAF-08` | Freshly computed `observed_request_digest` differs from `bound_request_digest`. |
 | `AUTHORITY_REVOKED_IN_FLIGHT` | `AUTHORITY_REVOKED_IN_FLIGHT` | `CIAF-12` | Synchronous revocation feed reported `agent_id` revoked prior to side-effect commit. |
 
+---
+
+## 7. Normative Scope Boundaries & Open `v0.2` Public-Comment Items
+
+1. **Consequential Action Governance vs. Full Socio-Technical AI Governance**: CIAF-LCM governs **pre-execution action authorization, dual-key execution boundaries, and cryptographic audit provenance**. It does `NOT` evaluate statistical model accuracy, dataset bias, demographic fairness, training-data provenance, end-user UI explainability, or societal impact assessments, which `MUST` be addressed by complementary governance programs (see [`nist-ai-rmf-crosswalk-v0.1.md`](../standards-crosswalks/nist-ai-rmf-crosswalk-v0.1.md) and [`iso-42001-crosswalk-v0.1.md`](../standards-crosswalks/iso-42001-crosswalk-v0.1.md)).
+2. **Bounded Blast Radius vs. Upstream Semantic Business Validity**: A verified `AuditCapsule` proves that an untrusted agent proposal remained within standing delegated authority (`allowed_tools`, counterparty allowlists, ISO-4217 integer minor-unit ceilings, rolling cumulative velocity caps, watchlist clearances, and threshold `HUMAN_REVIEWER` signatures) under a pinned `policy_digest` and named `accountable_owner`. Cryptographic authorization bounds blast radius and enforces non-repudiable attribution; it does `NOT` prove that an in-scope request (for example, a socially engineered invoice below `max_auto_amount_minor_units` payable to an allowlisted vendor) was semantically legitimate—adopting institutions `SHOULD` pair CIAF-LCM with domain-specific fraud, three-way invoice matching, and anomaly-detection controls.
+3. **Open `v0.2` Roadmap — Historical Key-Rotation Validity Windows**: In `v0.1.x`, `trusted_keys` entries assert point-in-time `status: "ACTIVE" | "REVOKED"`. For multi-year archival verification across routine cryptographic key rotations (distinguishing scheduled key retirement from compromise revocation), `v0.2` tracks adding explicit validity intervals (`valid_from`, `valid_until`, `revoked_at`, and SCITT registration-time key-epoch proofs).
+4. **Open `v0.2` Roadmap — Pre-Pinning Policy Simulation & Static Linting (`CIAF-05`)**: Canonical `policy_digest` pinning proves *which* policy governed a decision, not that the human-authored policy lacked permissive misconfigurations; `v0.2` tracks standardized static policy linting and counterfactual corpus simulation prior to registry activation.
+
+
 
